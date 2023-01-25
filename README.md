@@ -11,5 +11,5 @@
 
 **Why is this project of interest to you?**
 - Journaling is good for reflection and letting out your emotions, but committing to it is difficult. I mostly reflect 
-and let my thoughts out by talking to my best friend, but sometimes he can be pretty busy, so here's an app that has 
+and let my thoughts out by talking to my best friend, but sometimes he can be pretty busy. So here's an app that has 
 that rant format but nobody on the other side of the screen that would be bothered by it!
