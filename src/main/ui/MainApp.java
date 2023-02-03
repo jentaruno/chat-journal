@@ -39,21 +39,4 @@ public class MainApp {
         //stub
     }
 
-    // MODIFIES: this, Category
-    // EFFECTS: creates new chat category titled with user input
-    private void newChatCategory() {
-        //stub
-    }
-
-    // MODIFIES: this, Category
-    // EFFECTS: allows user to select and delete chat category
-    private void deleteChatCategory() {
-        //stub
-    }
-
-    // EFFECTS: allows user to select and navigate to chat category
-    private void viewChatCategory() {
-        //stub
-    }
-
 }

@@ -1,21 +1,21 @@
 package ui;
 
+import model.Category;
 import model.Text;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryApp {
+public class ChatApp {
     private List<Text> texts;
 
     // EFFECTS: initialises fields and runs app
-    public CategoryApp() {
+    public ChatApp() {
         //stub
     }
 
     // MODIFIES: this
     // EFFECTS: processes user input for this category
-    public void runCategory() {
+    public void runCategory(Category category) {
         //stub
     }
 
