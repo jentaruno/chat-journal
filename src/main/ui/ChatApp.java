@@ -5,6 +5,8 @@ import model.Text;
 
 import java.util.List;
 
+
+// Chat UI with texts from a chat category
 public class ChatApp {
     private List<Text> texts;
 

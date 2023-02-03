@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// Main menu UI with all chat categories
 public class MainApp {
     private String userName;
     private List<Category> categoryList;
@@ -14,6 +15,7 @@ public class MainApp {
     // EFFECTS: initialises fields and runs the chat journal application
     public MainApp() {
         //stub
+
     }
 
     // MODIFIES: this
