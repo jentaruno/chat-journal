@@ -79,7 +79,7 @@ public class ChatApp {
     private void processCommand(String command) {
         if (command.startsWith(CLOSE_COMMAND)) {
             keepGoing = false;
-        } else if (!command.isBlank()) {
+        } else if (!command.replace(" ","").isEmpty()) {
             category.addText(command);
         }
     }

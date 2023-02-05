@@ -34,6 +34,6 @@ class TextTest {
         text1.add("Today was a great day");
         assertEquals("Today was a great day", text1.getText(0));
         text1.add("I saw dogs in the park");
-        assertEquals("I saw dogs in the park",text1.getText(1));
+        assertEquals("I saw dogs in the park", text1.getText(1));
     }
 }
