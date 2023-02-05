@@ -31,6 +31,7 @@ class CategoryListTest {
         generateTestCategories();
         assertEquals("Diary", categoryList.getChatCategory("Diary").getTitle());
         assertEquals("Ideas", categoryList.getChatCategory("Ideas").getTitle());
+        assertNull(categoryList.getChatCategory("Travel"));
     }
 
     @Test
