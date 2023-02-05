@@ -22,8 +22,8 @@ class CategoryTest {
     void CategoryTest() {
         assertEquals("Diary", category1.getTitle());
         assertEquals("Ideas", category2.getTitle());
-        assertEquals(new ArrayList<>(),category1.getTextList());
-        assertEquals(new ArrayList<>(),category2.getTextList());
+        assertEquals(new ArrayList<>(), category1.getTextList());
+        assertEquals(new ArrayList<>(), category2.getTextList());
     }
 
     @Test

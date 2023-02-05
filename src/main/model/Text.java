@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
 
+import ui.ChatApp;
+
 // Group of texts for a certain date
 public class Text {
     private String date;
     private List<String> texts;
 
     public Text() {
-        long millis = System.currentTimeMillis();
-        java.sql.Date date = new java.sql.Date(millis);
-        this.date = String.valueOf(date);
+        this.date = ChatApp.getDateToday();
         this.texts = new ArrayList<>();
     }
 
@@ -33,6 +33,6 @@ public class Text {
     // MODIFIES: this
     // EFFECTS: adds given string to text list
     public void add(String text) {
-        //stub
+        texts.add(text);
     }
 }

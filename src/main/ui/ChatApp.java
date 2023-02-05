@@ -4,42 +4,83 @@ import model.Category;
 import model.Text;
 
 import java.util.List;
+import java.util.Scanner;
 
 
 // Chat UI with texts from a chat category
 public class ChatApp {
+    private Category category;
+    private String title;
     private List<Text> texts;
+    private final Scanner input;
+    private boolean keepGoing = true;
+
+    private static final String CLOSE_COMMAND = "!x";
+    private static final int MIN_LINES = 4;
 
     // EFFECTS: initialises fields and runs app
     public ChatApp() {
-        //stub
+        input = new Scanner(System.in);
+        input.useDelimiter("\n");
+    }
+
+    public static String getDateToday() {
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
+        return String.valueOf(date);
+    }
+
+    public void init(Category initCategory) {
+        this.category = initCategory;
+        this.title = initCategory.getTitle();
+        this.texts = initCategory.getTextList();
+        this.keepGoing = true;
     }
 
     // MODIFIES: this
     // EFFECTS: processes user input for this category
-    public void runCategory(Category category) {
-        //stub
+    public void runCategory(Category initCategory) {
+        init(initCategory);
+
+        String command;
+
+        while (keepGoing) {
+            System.out.println("\n#### " + title + " ###############");
+            System.out.println("(TYPE " + CLOSE_COMMAND + " TO CLOSE CHAT)");
+            System.out.println("----------------------------------");
+            displayTexts();
+            System.out.println("----------------------------------");
+            System.out.print("> ");
+            command = input.next();
+
+            processCommand(command);
+        }
     }
 
-    // EFFECTS: display existing texts
+    // EFFECTS: display existing texts, add spacing if too few texts
     private void displayTexts() {
-        //stub
+        int lineCount = 0;
+        for (Text text : texts) {
+            System.out.println(text.getDate());
+            lineCount++;
+            for (String msg : text.getTexts()) {
+                System.out.println("[" + msg + "]");
+                lineCount++;
+            }
+        }
+        while (lineCount < MIN_LINES) {
+            System.out.println();
+            lineCount++;
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
-        //stub
-    }
-
-    // MODIFIES: this, Category, Text
-    // EFFECTS: allows user to input text, add it to list of texts
-    private void inputNewText() {
-        //stub
-    }
-
-    // EFFECTS: closes category and return to main menu
-    private void closeCategory() {
-        //stub
+        if (command.startsWith(CLOSE_COMMAND)) {
+            keepGoing = false;
+        } else if (!command.isBlank()) {
+            category.addText(command);
+        }
     }
 }
