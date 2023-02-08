@@ -28,9 +28,13 @@ class CategoryTest {
 
     @Test
     void addTextTest() {
-        category1.addText("Today was a great day");
+        category1.addText(new Text(Utility.getDateToday(), "Today was a great day"));
         assertEquals(1, category1.getTextList().size());
-        category1.addText("I saw dogs in the park");
-        assertEquals(2, category1.getTextList().size());
+        category1.addText(new Text(Utility.getDateToday(), "I saw dogs in the park"));
+        assertEquals(1, category1.getTextList().size());
+        category2.addText(new Text("2022-03-08", "Past date entry insert"));
+        assertEquals(1, category2.getTextList().size());
+        category2.addText(new Text(Utility.getDateToday(), "Current date entry insert"));
+        assertEquals(2, category2.getTextList().size());
     }
 }

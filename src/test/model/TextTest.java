@@ -16,7 +16,7 @@ class TextTest {
     @BeforeEach
     void setUp() {
         text1 = new Text();
-        text2 = new Text();
+        text2 = new Text("2022-02-08", "Hello World");
     }
 
     @Test
@@ -24,9 +24,11 @@ class TextTest {
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
         assertEquals(String.valueOf(date), text1.getDate());
-        assertEquals(String.valueOf(date), text2.getDate());
+        assertEquals("2022-02-08", text2.getDate());
         assertEquals(new ArrayList<>(), text1.getTexts());
-        assertEquals(new ArrayList<>(), text2.getTexts());
+        List<String> msgsTest = new ArrayList<>();
+        msgsTest.add("Hello World");
+        assertEquals(msgsTest, text2.getTexts());
     }
 
     @Test

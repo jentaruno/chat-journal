@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import ui.ChatApp;
+import model.Utility;
 
 // Chat category with a title and a list of texts in it
 public class Category {
@@ -28,7 +28,7 @@ public class Category {
     // REQUIRES: text is not an empty string or null
     // MODIFIES: this, Text
     // EFFECTS: add given text to list of texts from new/existing date
-    public void addText(String text) {
+    public void addText(Text text) {
         String lastDate = "";
         Text lastText = null;
 
@@ -37,12 +37,10 @@ public class Category {
             lastText = textList.get(lastIndex);
             lastDate = lastText.getDate();
         }
-        if (lastDate.equals(ChatApp.getDateToday())) {
-            lastText.add(text);
+        if (lastDate.equals(Utility.getDateToday())) {
+            lastText.add(text.getText(0));
         } else {
-            Text newText = new Text();
-            newText.add(text);
-            textList.add(newText);
+            textList.add(text);
         }
     }
 }

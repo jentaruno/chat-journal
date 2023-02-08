@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
 
-import ui.ChatApp;
+import model.Utility;
 
 // Group of texts for a certain date
 public class Text {
@@ -12,8 +12,14 @@ public class Text {
     private List<String> texts;
 
     public Text() {
-        this.date = ChatApp.getDateToday();
+        this.date = Utility.getDateToday();
         this.texts = new ArrayList<>();
+    }
+
+    public Text(String date, String msg) {
+        this.date = date;
+        this.texts = new ArrayList<>();
+        this.texts.add(msg);
     }
 
     //getters

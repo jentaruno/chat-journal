@@ -2,6 +2,7 @@ package ui;
 
 import model.Category;
 import model.Text;
+import model.Utility;
 
 import java.util.List;
 import java.util.Scanner;
@@ -22,12 +23,6 @@ public class ChatApp {
     public ChatApp() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
-    }
-
-    public static String getDateToday() {
-        long millis = System.currentTimeMillis();
-        java.sql.Date date = new java.sql.Date(millis);
-        return String.valueOf(date);
     }
 
     public void init(Category initCategory) {
@@ -79,8 +74,8 @@ public class ChatApp {
     private void processCommand(String command) {
         if (command.startsWith(CLOSE_COMMAND)) {
             keepGoing = false;
-        } else if (!command.replace(" ","").isEmpty()) {
-            category.addText(command);
+        } else if (!command.replace(" ", "").isEmpty()) {
+            category.addText(new Text(Utility.getDateToday(), command));
         }
     }
 }

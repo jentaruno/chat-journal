@@ -107,7 +107,7 @@ public class MainApp {
     // MODIFIES: this
     // EFFECTS: creates chat category with given name, or open existing one with given name
     private void doOpenChat(String command) {
-        String selectedCategory = command.replace(CHAT_COMMAND + " ","");
+        String selectedCategory = command.replace(CHAT_COMMAND + " ", "");
         if (categoryList.getChatCategory(selectedCategory) == null) {
             categoryList.newChatCategory(selectedCategory);
         }
@@ -118,7 +118,7 @@ public class MainApp {
     // MODIFIES: this
     // EFFECTS: deletes given chat category if it exists, otherwise print invalid
     private void doDelete(String command) {
-        String selectedCategory = command.replace(DELETE_COMMAND + " ","");
+        String selectedCategory = command.replace(DELETE_COMMAND + " ", "");
         if (categoryList.getChatCategory(selectedCategory) != null) {
             categoryList.deleteChatCategory(selectedCategory);
             System.out.println(selectedCategory + " has been deleted.");
