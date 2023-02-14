@@ -2,7 +2,6 @@ package ui;
 
 import model.Category;
 import model.Text;
-import model.Utility;
 
 import java.util.List;
 import java.util.Scanner;
@@ -75,7 +74,7 @@ public class ChatApp {
         if (command.startsWith(CLOSE_COMMAND)) {
             keepGoing = false;
         } else if (!command.replace(" ", "").isEmpty()) {
-            category.addText(new Text(Utility.getDateToday(), command));
+            category.addText(new Text(Category.getDateToday(), command));
         }
     }
 }

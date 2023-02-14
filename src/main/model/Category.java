@@ -3,8 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Utility;
-
 // Chat category with a title and a list of texts in it
 public class Category {
     String title;
@@ -25,6 +23,13 @@ public class Category {
         return textList;
     }
 
+    // EFFECTS: returns date today
+    public static String getDateToday() {
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
+        return String.valueOf(date);
+    }
+
     // REQUIRES: text is not an empty string or null
     // MODIFIES: this, Text
     // EFFECTS: add given text to list of texts from new/existing date
@@ -37,7 +42,7 @@ public class Category {
             lastText = textList.get(lastIndex);
             lastDate = lastText.getDate();
         }
-        if (lastDate.equals(Utility.getDateToday())) {
+        if (lastDate.equals(Category.getDateToday()) && lastText != null) {
             lastText.add(text.getText(0));
         } else {
             textList.add(text);

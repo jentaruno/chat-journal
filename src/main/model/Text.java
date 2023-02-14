@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
 
-import model.Utility;
-
 // Group of texts for a certain date
 public class Text {
     private String date;
     private List<String> texts;
 
     public Text() {
-        this.date = Utility.getDateToday();
+        this.date = Category.getDateToday();
         this.texts = new ArrayList<>();
     }
 
