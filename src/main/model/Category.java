@@ -42,7 +42,7 @@ public class Category {
             lastText = textList.get(lastIndex);
             lastDate = lastText.getDate();
         }
-        if (lastDate.equals(Category.getDateToday()) && lastText != null) {
+        if (lastDate.equals(Category.getDateToday())) {
             lastText.add(text.getText(0));
         } else {
             textList.add(text);
