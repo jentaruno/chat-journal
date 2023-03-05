@@ -74,7 +74,9 @@ public class ChatApp {
         if (command.startsWith(CLOSE_COMMAND)) {
             keepGoing = false;
         } else if (!command.replace(" ", "").isEmpty()) {
-            category.addText(new Text(Category.getDateToday(), command));
+            Text text = new Text(Category.getDateToday());
+            text.add(command);
+            category.addText(text);
         }
     }
 }

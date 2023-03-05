@@ -16,7 +16,8 @@ class TextTest {
     @BeforeEach
     void setUp() {
         text1 = new Text();
-        text2 = new Text("2022-02-08", "Hello World");
+        text2 = new Text("2022-02-08");
+        text2.add("Hello World");
     }
 
     @Test

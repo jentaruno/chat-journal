@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
@@ -15,11 +18,10 @@ public class Text {
         this.texts = new ArrayList<>();
     }
 
-    // EFFECTS: creates a group of texts for a given date, with given text in list of texts
-    public Text(String date, String msg) {
+    // EFFECTS: creates a group of texts for a given date
+    public Text(String date) {
         this.date = date;
         this.texts = new ArrayList<>();
-        this.texts.add(msg);
     }
 
     //getters
@@ -40,5 +42,23 @@ public class Text {
     // EFFECTS: adds given string to text list
     public void add(String text) {
         texts.add(text);
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("date", date);
+        json.put("texts", textsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this CategoryList as a JSON array
+    private JSONArray textsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (String msg : texts) {
+            jsonArray.put(msg);
+        }
+
+        return jsonArray;
     }
 }

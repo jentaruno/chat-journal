@@ -1,0 +1,35 @@
+{
+  "categoryList": [
+    {
+      "textList": [
+        {
+          "date": "2023-03-05",
+          "texts": [
+            "milk",
+            "cows",
+            "yogurt"
+          ]
+        }
+      ],
+      "title": "Dairy"
+    },
+    {
+      "textList": [
+        {
+          "date": "2023-03-02",
+          "texts": [
+            "hello"
+          ]
+        },
+        {
+          "date": "2023-03-03",
+          "texts": [
+            "howdy"
+          ]
+        }
+      ],
+      "title": "Hi"
+    }
+  ],
+  "userName": "User"
+}

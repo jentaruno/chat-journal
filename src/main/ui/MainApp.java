@@ -3,31 +3,41 @@ package ui;
 import model.Category;
 import model.CategoryList;
 import model.Text;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 // Main menu UI with all chat categories
 public class MainApp {
-    private String userName;
+    private static final String JSON_STORE = "./data/chatjournal.json";
     private CategoryList categoryList;
     private ChatApp chatApp;
-    private Scanner input;
+    private final Scanner input;
+    private final JsonWriter jsonWriter;
+    private final JsonReader jsonReader;
 
     private static final String CHAT_COMMAND = "!c";
     private static final String DELETE_COMMAND = "!d";
+    private static final String SAVE_COMMAND = "!s";
+    private static final String LOAD_COMMAND = "!l";
     private static final String QUIT_COMMAND = "!q";
     private static final String CHAT_HELP = " [chat name] -> create chat [chat name] or open existing chat [chat name]";
     private static final String DELETE_HELP = " [chat name] -> delete chat [chat name]";
+    private static final String SAVE_HELP = "             -> save Chat Journal to file";
+    private static final String LOAD_HELP = "             -> load Chat Journal from file";
     private static final String QUIT_HELP = "             -> quit app";
 
     // EFFECTS: initialises fields and runs the chat journal application
-    public MainApp() {
-        userName = "";
-        categoryList = new CategoryList();
+    public MainApp() throws FileNotFoundException {
         chatApp = new ChatApp();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runMenu();
     }
 
@@ -40,7 +50,7 @@ public class MainApp {
         inputUserName();
 
         while (keepGoing) {
-            System.out.println("\n############### " + userName + "'s Chat Journal ###############");
+            System.out.println("\n############### " + categoryList.getUserName() + "'s Chat Journal ###############");
             displayCategories();
 
             displayCommands();
@@ -61,7 +71,8 @@ public class MainApp {
     private void inputUserName() {
         System.out.println("Please enter your name: ");
         System.out.print("> ");
-        userName = input.next();
+        String userName = input.next();
+        categoryList = new CategoryList(userName);
     }
 
     // MODIFIES: this
@@ -70,6 +81,8 @@ public class MainApp {
         System.out.println("\nCommands:");
         System.out.println("\t* " + CHAT_COMMAND + CHAT_HELP);
         System.out.println("\t* " + DELETE_COMMAND + DELETE_HELP);
+        System.out.println("\t* " + SAVE_COMMAND + SAVE_HELP);
+        System.out.println("\t* " + LOAD_COMMAND + LOAD_HELP);
         System.out.println("\t* " + QUIT_COMMAND + QUIT_HELP);
         System.out.print("> ");
     }
@@ -83,9 +96,7 @@ public class MainApp {
                 List<Text> texts = category.getTextList();
                 int textCount = 0;
                 for (Text text : texts) {
-                    for (String msg : text.getTexts()) {
-                        textCount++;
-                    }
+                    textCount += text.getTexts().size();
                 }
                 System.out.println("- " + category.getTitle() + ": " + textCount + " texts");
             }
@@ -99,6 +110,10 @@ public class MainApp {
             doOpenChat(command);
         } else if (command.startsWith(DELETE_COMMAND + " ")) {
             doDelete(command);
+        } else if (command.startsWith(SAVE_COMMAND)) {
+            doSave();
+        } else if (command.startsWith(LOAD_COMMAND)) {
+            doLoad();
         } else {
             System.out.println("Invalid command");
         }
@@ -124,6 +139,29 @@ public class MainApp {
             System.out.println(selectedCategory + " has been deleted.");
         } else {
             System.out.println("Chat '" + selectedCategory + "' does not exist!");
+        }
+    }
+
+    // EFFECTS: saves current Chat Journal to file
+    private void doSave() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(categoryList);
+            jsonWriter.close();
+            System.out.println("Saved " + categoryList.getUserName() + "'s Chat Journal to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads Chat Journal from file
+    private void doLoad() {
+        try {
+            categoryList = jsonReader.read();
+            System.out.println("Loaded " + categoryList.getUserName() + "'s Chat Journal from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 }

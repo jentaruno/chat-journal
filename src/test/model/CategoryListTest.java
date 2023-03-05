@@ -13,17 +13,18 @@ class CategoryListTest {
 
     @BeforeEach
     void setUp() {
-        categoryList = new CategoryList();
+        categoryList = new CategoryList("User");
+    }
+
+    @Test
+    void CategoryListTest() {
+        assertEquals("User", categoryList.getUserName());
+        assertEquals(new ArrayList<>(), categoryList.getCategoryList());
     }
 
     void generateTestCategories() {
         categoryList.newChatCategory("Diary");
         categoryList.newChatCategory("Ideas");
-    }
-
-    @Test
-    void CategoryListTest() {
-        assertEquals(new ArrayList<>(), categoryList.getCategoryList());
     }
 
     @Test

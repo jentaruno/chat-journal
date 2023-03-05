@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,5 +51,20 @@ public class Category {
         } else {
             textList.add(text);
         }
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("textList", textListToJson());
+        return json;
+    }
+
+    public JSONArray textListToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Text text : textList) {
+            jsonArray.put(text.toJson());
+        }
+        return jsonArray;
     }
 }
