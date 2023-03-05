@@ -39,4 +39,13 @@ class TextTest {
         text1.add("I saw dogs in the park");
         assertEquals("I saw dogs in the park", text1.getText(1));
     }
+
+    @Test
+    void toJSON() {
+        assertEquals("{\"date\":\"2023-03-05\",\"texts\":[]}",text1.toJson().toString());
+        text1.add("One");
+        assertEquals("{\"date\":\"2023-03-05\",\"texts\":[\"One\"]}",text1.toJson().toString());
+        text1.add("Two");
+        assertEquals("{\"date\":\"2023-03-05\",\"texts\":[\"One\",\"Two\"]}",text1.toJson().toString());
+    }
 }

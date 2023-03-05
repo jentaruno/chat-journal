@@ -49,4 +49,12 @@ class CategoryTest {
         category2.addText(sampleText1);
         assertEquals(2, category2.getTextList().size());
     }
+
+    @Test
+    void toJSON() {
+        assertEquals("{\"textList\":[],\"title\":\"Diary\"}", category1.toJson().toString());
+        Text sampleText1 = new Text("2022-03-05");
+        category1.addText(new Text("2022-03-05"));
+        assertEquals("{\"textList\":[{\"date\":\"2022-03-05\",\"texts\":[]}],\"title\":\"Diary\"}", category1.toJson().toString());
+    }
 }

@@ -36,6 +36,12 @@ class CategoryListTest {
     }
 
     @Test
+    void addChatCategoryTest() {
+        categoryList.addChatCategory(new Category("Notes"));
+        assertEquals("Notes", categoryList.getChatCategory("Notes").getTitle());
+    }
+
+    @Test
     void newChatCategoryTest() {
         generateTestCategories();
         assertEquals("Diary", categoryList.getChatCategory("Diary").getTitle());
@@ -50,6 +56,17 @@ class CategoryListTest {
         assertEquals("Ideas", categoryList.getChatCategory("Ideas").getTitle());
         categoryList.deleteChatCategory("Ideas");
         assertEquals(0, categoryList.getCategoryList().size());
+    }
+
+    @Test
+    void toJsonTest() {
+        assertEquals("{\"categoryList\":[],\"userName\":\"User\"}", categoryList.toJson().toString());
+        categoryList.newChatCategory("Food");
+        assertEquals("{\"categoryList\":[{\"textList\":[],\"title\":\"Food\"}],\"userName\":\"User\"}",
+                categoryList.toJson().toString());
+        categoryList.newChatCategory("Travel");
+        assertEquals("{\"categoryList\":[{\"textList\":[],\"title\":\"Food\"},{\"textList\":[],\"title\":\"Travel\"}],\"userName\":\"User\"}",
+                categoryList.toJson().toString());
     }
 
 }
