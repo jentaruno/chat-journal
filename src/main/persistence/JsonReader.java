@@ -21,7 +21,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads category list from file and returns it;
+    // EFFECTS: reads categoryList from file and returns it;
     // throws IOException if an error occurs reading data from file
     public CategoryList read() throws IOException {
         String jsonData = readFile(source);
@@ -59,7 +59,7 @@ public class JsonReader {
     }
 
     // MODIFIES: categoryList
-    // EFFECTS: parses category from JSON object and adds it to category list
+    // EFFECTS: parses category from JSON object and adds it to categoryList
     private void addCategory(CategoryList categoryList, JSONObject jsonObject) {
         String title = jsonObject.getString("title");
         Category category = new Category(title);

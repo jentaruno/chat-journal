@@ -57,6 +57,7 @@ public class CategoryList implements Writable {
         categoryList.add(category);
     }
 
+    // EFFECTS: returns CategoryList as a JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -65,7 +66,7 @@ public class CategoryList implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this CategoryList as a JSON array
+    // EFFECTS: returns categories in this CategoryList as a JSON array
     private JSONArray categoriesToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Category category : categoryList) {

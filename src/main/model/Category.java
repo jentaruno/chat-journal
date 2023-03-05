@@ -53,6 +53,7 @@ public class Category {
         }
     }
 
+    // EFFECTS: returns Category as a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("title", title);
@@ -60,6 +61,7 @@ public class Category {
         return json;
     }
 
+    // EFFECTS: returns Texts in this Category as a JSON array
     public JSONArray textListToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Text text : textList) {

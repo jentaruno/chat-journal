@@ -44,6 +44,7 @@ public class Text {
         texts.add(text);
     }
 
+    // EFFECTS: returns Text as a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("date", date);
@@ -51,7 +52,7 @@ public class Text {
         return json;
     }
 
-    // EFFECTS: returns things in this CategoryList as a JSON array
+    // EFFECTS: returns messages (strings) in this Text as a JSON array
     private JSONArray textsToJson() {
         JSONArray jsonArray = new JSONArray();
 
