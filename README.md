@@ -19,3 +19,7 @@ that rant format but nobody on the other side of the screen that would be bother
 - As a user, I want to view a list of the chat categories I have
 - As a user, I want to be able to tap into a chat category and see the texts I have sent in it
 - As a user, I want to be able to type and send texts
+- As a user, I want to be able to save my Chat Journal to file (if I so choose)
+- As a user, I want to be able to be able to load my Chat Journal from file (if I so choose)
+- As a user, when I select the quit option from the application menu, I want to be reminded to save my Chat Journal to file and have the option to do so or not.
+- As a user, when I start the application, I want to be given the option to load my Chat Journal from file.

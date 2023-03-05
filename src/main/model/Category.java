@@ -8,7 +8,7 @@ public class Category {
     String title;
     List<Text> textList;
 
-    // Constructor
+    // EFFECTS: creates a category with given title, and an empty list of texts
     public Category(String title) {
         this.title = title;
         this.textList = new ArrayList<>();
@@ -43,6 +43,7 @@ public class Category {
             lastDate = lastText.getDate();
         }
         if (lastDate.equals(Category.getDateToday())) {
+            assert lastText != null;
             lastText.add(text.getText(0));
         } else {
             textList.add(text);

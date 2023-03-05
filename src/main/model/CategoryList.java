@@ -7,6 +7,7 @@ import java.util.List;
 public class CategoryList {
     private List<Category> categoryList;
 
+    // EFFECTS: create an empty category list
     public CategoryList() {
         categoryList = new ArrayList<>();
     }

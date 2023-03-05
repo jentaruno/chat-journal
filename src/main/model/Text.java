@@ -9,11 +9,13 @@ public class Text {
     private String date;
     private List<String> texts;
 
+    // EFFECTS: creates a group of texts for today's date, with an empty list of texts
     public Text() {
         this.date = Category.getDateToday();
         this.texts = new ArrayList<>();
     }
 
+    // EFFECTS: creates a group of texts for a given date, with given text in list of texts
     public Text(String date, String msg) {
         this.date = date;
         this.texts = new ArrayList<>();
