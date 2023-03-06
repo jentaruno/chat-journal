@@ -13,12 +13,12 @@ import java.util.Scanner;
 
 // Main menu UI with all chat categories
 public class MainApp {
-    private static final String JSON_STORE = "./data/chatjournal.json";
+    private static String JSON_STORE = "./data/";
     private CategoryList categoryList;
     private ChatApp chatApp;
     private final Scanner input;
-    private final JsonWriter jsonWriter;
-    private final JsonReader jsonReader;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     private static final String CHAT_COMMAND = "!c";
     private static final String DELETE_COMMAND = "!d";
@@ -28,7 +28,7 @@ public class MainApp {
     private static final String CHAT_HELP = " [chat name] -> create chat [chat name] or open existing chat [chat name]";
     private static final String DELETE_HELP = " [chat name] -> delete chat [chat name]";
     private static final String SAVE_HELP = "             -> save Chat Journal to file";
-    private static final String LOAD_HELP = "             -> load Chat Journal from file";
+    private static final String LOAD_HELP = " [name]      -> load [name]'s Chat Journal from file";
     private static final String QUIT_HELP = "             -> quit app";
 
     // EFFECTS: initialises fields and runs the chat journal application
@@ -36,8 +36,6 @@ public class MainApp {
         chatApp = new ChatApp();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
         runMenu();
     }
 
@@ -63,16 +61,26 @@ public class MainApp {
             }
         }
 
+        doSave();
         System.out.println("\nGoodbye!");
     }
 
     // MODIFIES: this
-    // EFFECTS: allows user to input name and sets userName as their name
+    // EFFECTS: allows user to input name. if new user, sets userName as their name. if existing user, load their file
     private void inputUserName() {
         System.out.println("Please enter your name: ");
         System.out.print("> ");
         String userName = input.next();
-        categoryList = new CategoryList(userName);
+        JSON_STORE += userName + ".json";
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        try {
+            CategoryList cl = jsonReader.read();
+            categoryList = cl;
+            System.out.println("Welcome back, " + categoryList.getUserName() + "!");
+        } catch (IOException e) {
+            categoryList = new CategoryList(userName);
+        }
     }
 
     // MODIFIES: this
@@ -112,8 +120,8 @@ public class MainApp {
             doDelete(command);
         } else if (command.startsWith(SAVE_COMMAND)) {
             doSave();
-        } else if (command.startsWith(LOAD_COMMAND)) {
-            doLoad();
+        } else if (command.startsWith(LOAD_COMMAND + " ")) {
+            doLoad(command);
         } else {
             System.out.println("Invalid command");
         }
@@ -156,12 +164,17 @@ public class MainApp {
 
     // MODIFIES: this
     // EFFECTS: loads Chat Journal from file
-    private void doLoad() {
+    private void doLoad(String command) {
+        String userToLoad = command.replace(LOAD_COMMAND + " ", "");
         try {
+            JSON_STORE = "./data/" + userToLoad + ".json";
+            jsonWriter = new JsonWriter(JSON_STORE);
+            jsonReader = new JsonReader(JSON_STORE);
             categoryList = jsonReader.read();
             System.out.println("Loaded " + categoryList.getUserName() + "'s Chat Journal from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+            JSON_STORE = ".data/" + categoryList.getUserName() + ".json";
         }
     }
 }
