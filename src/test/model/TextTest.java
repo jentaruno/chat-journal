@@ -13,12 +13,14 @@ class TextTest {
 
     Text text1;
     Text text2;
+    Text text3;
 
     @BeforeEach
     void setUp() {
         text1 = new Text();
         text2 = new Text("2022-02-08");
         text2.add("Hello World");
+        text3 = new Text("2005-11-26");
     }
 
     @Test
@@ -43,10 +45,10 @@ class TextTest {
 
     @Test
     void toJSON() {
-        assertEquals("{\"date\":\"2023-03-05\",\"texts\":[]}",text1.toJson().toString());
-        text1.add("One");
-        assertEquals("{\"date\":\"2023-03-05\",\"texts\":[\"One\"]}",text1.toJson().toString());
-        text1.add("Two");
-        assertEquals("{\"date\":\"2023-03-05\",\"texts\":[\"One\",\"Two\"]}",text1.toJson().toString());
+        assertEquals("{\"date\":\"2005-11-26\",\"texts\":[]}",text3.toJson().toString());
+        text3.add("One");
+        assertEquals("{\"date\":\"2005-11-26\",\"texts\":[\"One\"]}",text3.toJson().toString());
+        text3.add("Two");
+        assertEquals("{\"date\":\"2005-11-26\",\"texts\":[\"One\",\"Two\"]}",text3.toJson().toString());
     }
 }
