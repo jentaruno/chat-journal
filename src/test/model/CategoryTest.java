@@ -38,13 +38,15 @@ class CategoryTest {
     void addTextTest() {
         Text sampleText1 = new Text(getDateToday());
         sampleText1.add("Current date entry insert");
-        Text sampleText2 = new Text("2022-03-08");
-        sampleText2.add("Past date entry insert");
+        Text sampleText2 = new Text(getDateToday());
+        sampleText2.add("Current date entry insert part 2");
+        Text sampleText3 = new Text("2022-03-08");
+        sampleText3.add("Past date entry insert");
         category1.addText(sampleText1);
         assertEquals(1, category1.getTextList().size());
-        category1.addText(sampleText1);
+        category1.addText(sampleText2);
         assertEquals(1, category1.getTextList().size());
-        category2.addText(sampleText2);
+        category2.addText(sampleText3);
         assertEquals(1, category2.getTextList().size());
         category2.addText(sampleText1);
         assertEquals(2, category2.getTextList().size());
