@@ -46,7 +46,6 @@ public class Category {
             lastDate = lastText.getDate();
         }
         if (lastDate.equals(Category.getDateToday())) {
-            assert lastText != null;
             lastText.add(text.getText(0));
         } else {
             textList.add(text);
