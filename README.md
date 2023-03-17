@@ -22,6 +22,16 @@ that rant format but nobody on the other side of the screen that would be bother
 - As a user, I want to be able to save my Chat Journal to file (if I so choose)
 - As a user, I want to be able to be able to load my Chat Journal from file (if I so choose)
 - As a user, when I start the application, I want to enter my name and automatically load my Chat Journal if it already exists.
+---
+# Instructions for Grader
+
+- You can generate the first required action related to adding Xs to a Y by using the [+] button to add a chat
+- You can generate the second required action related to adding Xs to a Y by deleting a chat using the [🗑️] delete
+button
+- You can locate my visual component by loading the app
+- You can save the state of my application by clicking the [💾] save button
+- You can reload the state of my application by clicking the [📁] load button
+---
 
 ***References***\
 Data persistence code adapted from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo

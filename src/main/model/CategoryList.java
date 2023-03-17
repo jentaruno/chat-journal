@@ -4,8 +4,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import javax.swing.*;
+import java.beans.XMLDecoder;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 // List of chat categories the user has created
 public class CategoryList implements Writable {
@@ -21,6 +25,10 @@ public class CategoryList implements Writable {
     //getters
     public List<Category> getCategoryList() {
         return categoryList;
+    }
+
+    public List<JLabel> getCategoryTitles() {
+        return categoryList.stream().map(e -> fromString(e.getTitle())).collect(Collectors.toList());
     }
 
     public String getUserName() {
@@ -73,6 +81,13 @@ public class CategoryList implements Writable {
             jsonArray.put(category.toJson());
         }
         return jsonArray;
+    }
+
+    private JLabel fromString(String str) {
+        XMLDecoder d = new XMLDecoder(new ByteArrayInputStream(str.getBytes()));
+        JLabel label = (JLabel) d.readObject();
+        d.close();
+        return label;
     }
 
 }
