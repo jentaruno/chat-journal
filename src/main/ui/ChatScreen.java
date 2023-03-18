@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class ChatScreen extends JFrame implements ActionListener {
-    private MainMenu mainMenu;
+    private final MainMenu mainMenu;
     private Category category;
     private JLabel chatTitle;
     private String title;
@@ -59,7 +59,9 @@ public class ChatScreen extends JFrame implements ActionListener {
         panel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 
         panel.add(createNavBar());
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
         panel.add(createTextsList());
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
         panel.add(createTypeBar());
 
         add(panel);
@@ -74,27 +76,32 @@ public class ChatScreen extends JFrame implements ActionListener {
         backButton.addActionListener(this);
 
         JPanel navBar = new JPanel();
+        navBar.setLayout(new BoxLayout(navBar, BoxLayout.X_AXIS));
         navBar.add(chatTitle);
+        navBar.add(Box.createHorizontalGlue());
         navBar.add(backButton);
+        navBar.setAlignmentX(Component.LEFT_ALIGNMENT);
         return navBar;
     }
 
     private JPanel createTextsList() {
         textsPanel = new JPanel();
         textsPanel.setLayout(new BoxLayout(textsPanel, BoxLayout.Y_AXIS));
+        textsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         return textsPanel;
     }
 
 
     private JPanel createTypeBar() {
         JPanel typePanel = new JPanel();
-        textField = new JTextField(10);
+        textField = new JTextField(20);
         typePanel.add(textField);
 
         JButton sendButton = new JButton("Send");
         sendButton.setActionCommand("send");
         sendButton.addActionListener(this);
         typePanel.add(sendButton);
+        typePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         return typePanel;
     }

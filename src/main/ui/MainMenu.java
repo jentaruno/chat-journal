@@ -25,7 +25,7 @@ public class MainMenu extends JFrame implements ActionListener {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private DefaultListModel<String> listModel;
-    private ChatScreen chatScreen;
+    private final ChatScreen chatScreen;
     JList<String> list;
 
     public MainMenu() {
@@ -54,30 +54,42 @@ public class MainMenu extends JFrame implements ActionListener {
 
     private void getUserName() {
         String userName = JOptionPane.showInputDialog(null, "Please enter a user name:");
-        // TODO: cannot be null, and load auto if existing name
-        categoryList = new CategoryList(userName);
-        setupJson();
+        if (userName.equals("")) {
+            userName = "Anon";
+        }
+        setupJson(userName);
+        try {
+            categoryList = jsonReader.read();
+        } catch (IOException e) {
+            categoryList = new CategoryList(userName);
+        }
     }
 
-    private void setupJson() {
-        JSON_STORE += categoryList.getUserName() + ".json";
+    private void setupJson(String userName) {
+        JSON_STORE += userName + ".json";
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }
 
     private void displayInterface() {
         JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+
         panel.add(createHeading());
         panel.add(createNavButtons());
         panel.add(createChats());
+        panel.add(Box.createRigidArea(new Dimension(0, 20)));
         panel.add(createOpenButton());
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        updateChats();
+
         add(panel);
     }
 
     private JLabel createHeading() {
         userNameLabel = new JLabel(categoryList.getUserName() + "'s Chat Journal");
-        userNameLabel.setHorizontalAlignment(JLabel.LEFT);
+        userNameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         userNameLabel.setFont(new Font("Arial", Font.BOLD, 20));
         return userNameLabel;
     }
@@ -100,7 +112,8 @@ public class MainMenu extends JFrame implements ActionListener {
         btn3.addActionListener(this);
 
         JPanel menuItems = new JPanel();
-        menuItems.setLayout(new FlowLayout(FlowLayout.CENTER));
+        menuItems.setAlignmentX(Component.LEFT_ALIGNMENT);
+        menuItems.setLayout(new FlowLayout(FlowLayout.LEFT));
         menuItems.add(btn0);
         menuItems.add(btn1);
         menuItems.add(btn2);
@@ -113,6 +126,7 @@ public class MainMenu extends JFrame implements ActionListener {
         // TODO: display number of texts for each category
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
+        list.setAlignmentX(Component.LEFT_ALIGNMENT);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
         list.setVisibleRowCount(-1);
