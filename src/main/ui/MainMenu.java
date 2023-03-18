@@ -2,6 +2,7 @@ package ui;
 
 import model.Category;
 import model.CategoryList;
+import model.Text;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -17,6 +18,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 public class MainMenu extends JFrame implements ActionListener {
     private static String JSON_STORE = "./data/";
@@ -123,7 +125,6 @@ public class MainMenu extends JFrame implements ActionListener {
     }
 
     private JList<String> createChats() {
-        // TODO: display number of texts for each category
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
         list.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -213,14 +214,13 @@ public class MainMenu extends JFrame implements ActionListener {
     // EFFECTS: loads Chat Journal from file
     private void doLoad() {
         String userToLoad = JOptionPane.showInputDialog(null, "Please enter a user name:");
-        // TODO: cannot be null
         try {
             JSON_STORE = "./data/" + userToLoad + ".json";
             jsonWriter = new JsonWriter(JSON_STORE);
             jsonReader = new JsonReader(JSON_STORE);
             categoryList = jsonReader.read();
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            JOptionPane.showMessageDialog(null, "Unable to read from file: " + JSON_STORE);
             JSON_STORE = ".data/" + categoryList.getUserName() + ".json";
         }
         updateChats();
