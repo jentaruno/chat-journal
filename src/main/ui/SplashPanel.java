@@ -5,30 +5,36 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+import javax.swing.JWindow;
 
-public class SplashPanel extends JPanel {
-
+public class SplashPanel extends JWindow {
     private Image splashImage;
 
+    // EFFECTS: load splash image from the project root folder
     public SplashPanel() {
         try {
-            BufferedImage image = ImageIO.read(new File("chat-journal-splash_640x480.png"));
+            BufferedImage image = ImageIO.read(new File("chat-journal-splash.png"));
             splashImage = Toolkit.getDefaultToolkit().createImage(image.getSource());
+            splashImage = splashImage.getScaledInstance(640, 480, Image.SCALE_SMOOTH);
         } catch (IOException e) {
-            System.out.println("Error loading splash image!");
+            System.out.println("Failed to load image");
+            splashImage = null;
         }
-        setPreferredSize(new Dimension(splashImage.getWidth(null), splashImage.getHeight(null)));
+
+        setPreferredSize(new Dimension(640, 480));
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
+    // EFFECTS: draw image in the center of the window
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        int x = (getWidth() - splashImage.getWidth(null)) / 2;
-        int y = (getHeight() - splashImage.getHeight(null)) / 2;
-        g.drawImage(splashImage, x, y, null);
+    public void paint(Graphics g) {
+        super.paint(g);
+        g.drawImage(splashImage, 0, 0, null);
     }
 }

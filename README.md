@@ -25,12 +25,12 @@ that rant format but nobody on the other side of the screen that would be bother
 ---
 # Instructions for Grader
 
-- You can generate the first required action related to adding Xs to a Y by using the [+] button to add a chat
-- You can generate the second required action related to adding Xs to a Y by deleting a chat using the [🗑️] delete
+- You can generate the first required action related to adding Xs to a Y by using the Add button to add a chat
+- You can generate the second required action related to adding Xs to a Y by deleting a chat using the Delete
 button
-- You can locate my visual component by loading the app
-- You can save the state of my application by clicking the [💾] save button
-- You can reload the state of my application by clicking the [📁] load button
+- You can locate my visual component by loading the app (it has a splash screen)
+- You can save the state of my application by clicking the Save button
+- You can reload the state of my application by clicking the Load button
 ---
 
 ***References***\
