@@ -60,8 +60,7 @@ public class ChatApp extends JFrame implements ActionListener {
         setResizable(false);
     }
 
-    // MODIFIES: this
-    // EFFECTS: create UI, with title, navbar,
+    // EFFECTS: create UI, with navbar, texts, and typing bar
     private void createInterface() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -77,6 +76,8 @@ public class ChatApp extends JFrame implements ActionListener {
         add(panel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: create navbar, with category title and back button
     private JPanel createNavBar() {
         chatTitle.setHorizontalAlignment(JLabel.LEFT);
         chatTitle.setFont(new Font("Arial", Font.BOLD, 20));
@@ -94,17 +95,20 @@ public class ChatApp extends JFrame implements ActionListener {
         return navBar;
     }
 
+    // MODIFIES: this
+    // EFFECTS: create scrollable panel for texts
     private JScrollPane createTextsList() {
         textsPanel.setLayout(new BoxLayout(textsPanel, BoxLayout.Y_AXIS));
         textsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         JScrollPane scroll = new JScrollPane(textsPanel,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scroll.setPreferredSize(new Dimension(250, 300));
+        scroll.setPreferredSize(new Dimension(150, 300));
         return scroll;
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: create type bar, with text field and send button
     private JPanel createTypeBar() {
         JPanel typePanel = new JPanel();
         textField.addActionListener(e -> doSend());
@@ -119,12 +123,15 @@ public class ChatApp extends JFrame implements ActionListener {
         return typePanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: update title text to reflect current category
     private void updateTitle() {
         chatTitle.setText(title);
         chatTitle.revalidate();
     }
 
-    // EFFECTS: display existing texts, add spacing if too few texts
+    // MODIFIES: this
+    // EFFECTS: update texts to reflect current category
     private void updateTexts() {
         textField.setText("");
         textsPanel.removeAll();
@@ -142,7 +149,7 @@ public class ChatApp extends JFrame implements ActionListener {
         textsPanel.revalidate();
     }
 
-
+    // EFFECTS: link user's actions to methods they're supposed to trigger
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("send")) {
@@ -153,14 +160,20 @@ public class ChatApp extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this, Category, Text
+    // EFFECTS: add text user inputted in text area to chat
     private void doSend() {
         String message = textField.getText();
+        if (message == null || message.equals("")) {
+            return;
+        }
         Text text = new Text(Category.getDateToday());
         text.add(message);
         category.addText(text);
         updateTexts();
     }
 
+    // EFFECTS: return to main menu
     private void doBack() {
         setVisible(false);
         mainApp.reactivate();

@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// Main menu screen
 public class MainApp extends JFrame implements ActionListener {
     private static String JSON_STORE = "./data/";
     private JLabel userNameLabel;
@@ -28,12 +29,26 @@ public class MainApp extends JFrame implements ActionListener {
     private final ChatApp chatApp;
     JList<String> list;
 
+    // EFFECTS: initialises fields and runs main menu
     public MainApp() {
         super("Chat Journal");
         chatApp = new ChatApp(this);
         getUserName();
         displayWindow();
         createInterface();
+    }
+
+    // EFFECTS: make main menu window visible
+    public void reactivate() {
+        setVisible(true);
+    }
+
+    // EFFECTS: set up window for main menu screen
+    private void displayWindow() {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(640, 480));
+        ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
+        setLayout(new FlowLayout());
 
         pack();
         setLocationRelativeTo(null);
@@ -41,17 +56,8 @@ public class MainApp extends JFrame implements ActionListener {
         setResizable(false);
     }
 
-    public void reactivate() {
-        setVisible(true);
-    }
-
-    private void displayWindow() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(640, 480));
-        ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
-        setLayout(new FlowLayout());
-    }
-
+    // MODIFIES: this, CategoryList
+    // EFFECTS: allows user to input name. if new user, sets userName as their name. if existing user, load their file
     private void getUserName() {
         String userName = JOptionPane.showInputDialog(null, "Please enter a user name:");
         if (userName == null || userName.equals("")) {
@@ -65,12 +71,15 @@ public class MainApp extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: set up save file path, json writer, and reader according to given username
     private void setupJson(String userName) {
         JSON_STORE += userName + ".json";
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }
 
+    // EFFECTS: create UI, with navbar, texts, and typing bar
     private void createInterface() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -87,6 +96,8 @@ public class MainApp extends JFrame implements ActionListener {
         add(panel);
     }
 
+    // MODIFIES: this
+    // EFFECTS: create app heading according to current user's name
     private JLabel createHeading() {
         userNameLabel = new JLabel(categoryList.getUserName() + "'s Chat Journal");
         userNameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -94,6 +105,7 @@ public class MainApp extends JFrame implements ActionListener {
         return userNameLabel;
     }
 
+    // EFFECTS: create add, delete, save, and load buttons
     private JPanel createNavButtons() {
         JButton btn0 = new JButton("Add");
         btn0.setActionCommand("add");
@@ -122,6 +134,8 @@ public class MainApp extends JFrame implements ActionListener {
         return menuItems;
     }
 
+    // MODIFIES: this
+    // EFFECTS: create list layout for chat categories
     private JList<String> createChats() {
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
@@ -129,11 +143,12 @@ public class MainApp extends JFrame implements ActionListener {
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setLayoutOrientation(JList.VERTICAL);
         list.setVisibleRowCount(-1);
-        JScrollPane listScroller = new JScrollPane(list);
-        listScroller.setPreferredSize(new Dimension(250, 20));
+        JScrollPane scroll = new JScrollPane(list);
+        scroll.setPreferredSize(new Dimension(250, 20));
         return list;
     }
 
+    // EFFECTS: create button to open chat
     private JButton createOpenButton() {
         JButton openButton = new JButton("Open Chat");
         openButton.setActionCommand("open");
@@ -141,6 +156,8 @@ public class MainApp extends JFrame implements ActionListener {
         return openButton;
     }
 
+    // MODIFIES: this
+    // EFFECTS: update chat categories to reflect current category list
     private void updateChats() {
         listModel.clear();
         for (Category c : categoryList.getCategoryList()) {
@@ -149,11 +166,13 @@ public class MainApp extends JFrame implements ActionListener {
         list.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: update username to reflect current username
     private void updateUserName() {
         userNameLabel.setText(categoryList.getUserName() + "'s Chat Journal");
     }
 
-    //This is the method that is called when the JButton btn is clicked
+    // EFFECTS: link user's actions to methods they're supposed to trigger
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("add")) {
             doNewChat();
@@ -172,7 +191,7 @@ public class MainApp extends JFrame implements ActionListener {
         }
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, CategoryList
     // EFFECTS: creates chat category with given name
     private void doNewChat() {
         String chatTitle = JOptionPane.showInputDialog(null, "Please enter a chat title:");
@@ -180,6 +199,8 @@ public class MainApp extends JFrame implements ActionListener {
         updateChats();
     }
 
+    // MODIFIES: this, ChatApp
+    // EFFECTS: open selected chat
     private void doOpenChat() {
         String selectedCategory = list.getSelectedValue();
         if (selectedCategory == null) {
@@ -189,7 +210,7 @@ public class MainApp extends JFrame implements ActionListener {
         chatApp.runCategory(categoryList.getChatCategory(selectedCategory));
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, CategoryList
     // EFFECTS: deletes selected chat category
     private void doDelete() {
         String selectedCategory = list.getSelectedValue();
@@ -208,7 +229,7 @@ public class MainApp extends JFrame implements ActionListener {
         }
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, CategoryList
     // EFFECTS: loads Chat Journal from file
     private void doLoad() {
         String userToLoad = JOptionPane.showInputDialog(null, "Please enter a user name:");
