@@ -2,6 +2,8 @@ package ui;
 
 import model.Category;
 import model.CategoryList;
+import model.EventLog;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -15,11 +17,13 @@ import javax.swing.JList;
 import javax.swing.*;
 
 import javax.swing.border.EmptyBorder;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // Main menu screen
-public class MainApp extends JFrame implements ActionListener {
+public class MainApp extends JFrame implements ActionListener, WindowListener {
     private static String JSON_STORE = "./data/";
     private JLabel userNameLabel;
     private CategoryList categoryList;
@@ -49,6 +53,7 @@ public class MainApp extends JFrame implements ActionListener {
         setPreferredSize(new Dimension(640, 480));
         ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
         setLayout(new FlowLayout());
+        addWindowListener(this);
 
         pack();
         setLocationRelativeTo(null);
@@ -245,4 +250,31 @@ public class MainApp extends JFrame implements ActionListener {
         updateChats();
         updateUserName();
     }
+
+    // EFFECTS: Log events when window is closed
+    public void windowClosing(WindowEvent e) {
+        EventLog el = EventLog.getInstance();
+        for (Event next : el) {
+            System.out.println(next.toString());
+        }
+    }
+
+    public void windowOpened(WindowEvent e) {
+    }
+
+    public void windowClosed(WindowEvent e) {
+    }
+
+    public void windowIconified(WindowEvent e) {
+    }
+
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    public void windowActivated(WindowEvent e) {
+    }
+
+    public void windowDeactivated(WindowEvent e) {
+    }
+
 }

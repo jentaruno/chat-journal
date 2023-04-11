@@ -16,6 +16,7 @@ public class CategoryList implements Writable {
     public CategoryList(String userName) {
         this.userName = userName;
         categoryList = new ArrayList<>();
+        EventLog.getInstance().logEvent(new Event("Opened " + userName + "'s Chat Journal"));
     }
 
     //getters
@@ -42,6 +43,7 @@ public class CategoryList implements Writable {
     public void newChatCategory(String title) {
         Category newCategory = new Category(title);
         categoryList.add(newCategory);
+        EventLog.getInstance().logEvent(new Event("Chat category created: " + title));
     }
 
     // MODIFIES: this, Category
@@ -49,6 +51,7 @@ public class CategoryList implements Writable {
     public void deleteChatCategory(String title) {
         Category deletedCategory = getChatCategory(title);
         categoryList.remove(deletedCategory);
+        EventLog.getInstance().logEvent(new Event("Chat category deleted: " + title));
     }
 
     // MODIFIES: this

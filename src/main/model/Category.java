@@ -50,6 +50,7 @@ public class Category {
         } else {
             textList.add(text);
         }
+        EventLog.getInstance().logEvent(new Event("Text added to chat " + title));
     }
 
     // EFFECTS: returns Category as a JSON object

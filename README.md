@@ -35,5 +35,35 @@ Chat to see its contents and add new texts
 - You can reload the state of my application by clicking the Load button
 ---
 
+# Phase 4: Task 2
+- Tue Apr 11 13:26:08 MDT 2023
+Opened Jen's Chat Journal
+- Tue Apr 11 13:26:16 MDT 2023
+Chat category created: Holiday
+- Tue Apr 11 13:26:18 MDT 2023
+Chat opened: Holiday
+- Tue Apr 11 13:26:20 MDT 2023
+Text added to chat Holiday
+- Tue Apr 11 13:26:20 MDT 2023
+Text added to chat Holiday
+- Tue Apr 11 13:26:20 MDT 2023
+Text added to chat Holiday
+- Tue Apr 11 13:26:20 MDT 2023
+Text added to chat Holiday
+- Tue Apr 11 13:26:20 MDT 2023
+Text added to chat Holiday
+- Tue Apr 11 13:26:20 MDT 2023
+Text added to chat Holiday
+- Tue Apr 11 13:26:22 MDT 2023
+Chat closed: Holiday
+- Tue Apr 11 13:26:27 MDT 2023
+Chat category created: Fam
+- Tue Apr 11 13:26:29 MDT 2023
+Chat category deleted: Fam
+- Tue Apr 11 13:26:31 MDT 2023
+Chat opened: Holiday
+- Tue Apr 11 13:26:33 MDT 2023
+Chat closed: Holiday
+
 ***References***\
 Data persistence code adapted from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo

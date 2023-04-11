@@ -1,6 +1,8 @@
 package ui;
 
 import model.Category;
+import model.Event;
+import model.EventLog;
 import model.Text;
 
 import javax.swing.*;
@@ -34,6 +36,7 @@ public class ChatApp extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: load information from given category and display it
     public void runCategory(Category initCategory) {
+        EventLog.getInstance().logEvent(new Event("Chat opened: " + initCategory.getTitle()));
         initFields(initCategory);
         displayWindow();
         updateTitle();
@@ -175,6 +178,7 @@ public class ChatApp extends JFrame implements ActionListener {
 
     // EFFECTS: return to main menu
     private void doBack() {
+        EventLog.getInstance().logEvent(new Event("Chat closed: " + category.getTitle()));
         setVisible(false);
         mainApp.reactivate();
     }
