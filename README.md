@@ -64,6 +64,18 @@ Chat category deleted: Fam
 Chat opened: Holiday
 - Tue Apr 11 13:26:33 MDT 2023
 Chat closed: Holiday
+---
+
+# Phase 4: Task 3
+- The biggest thing I could refactor is removing the *texts* field in ChatApp. The *texts* can be accessed through the
+*category* field, and that would reduce coupling.
+- Secondly, there are currently two functions that can add a new Category in CategoryList. One is called newChatCategory
+  (takes a string and adds new Category with that title), and the other is called addChatCategory (takes a Category). 
+Instead of naming them two different functions, it's possible to use overloading because they have the same end goal.
+- Lastly, renaming the fields and comments would be helpful for
+better consistency and readability. For example, as of now I sometimes call chats "chats", and sometimes I call them 
+"chat categories".
+---
 
 ***References***\
 Data persistence code adapted from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
